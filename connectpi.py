@@ -1,6 +1,6 @@
 import socket
 
-host = 'rasp-002'
+host = '10.35.70.2'
 port = 33000
 
 storedValue = "Yo, what's up?"
