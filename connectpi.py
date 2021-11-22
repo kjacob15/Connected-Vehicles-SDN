@@ -1,6 +1,6 @@
 import socket
 
-host = '10.35.70.2'
+host = 'rasp-002.berry.scss.tcd.ie'
 port = 33000
 
 storedValue = "Yo, what's up?"
