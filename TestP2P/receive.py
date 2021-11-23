@@ -1,7 +1,7 @@
 import socket
 
-UDP_IP = "10.35.70.1"
-UDP_PORT = 5005
+UDP_IP = "10.35.70.2"
+UDP_PORT = 33005
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  
 print("Socket created.")
