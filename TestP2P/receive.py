@@ -13,8 +13,14 @@ except socket.error as msg:
     print("Socket bind failed.")
 
 print("Debugging point 1")
-
-while True:
+cond= 2
+while cond>0:
     data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
     data = data.decode('utf-8')
     print("received message: ", data)
+    cond= 0
+
+sock.close()
+
+
+
