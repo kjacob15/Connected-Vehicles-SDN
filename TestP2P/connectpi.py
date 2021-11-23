@@ -1,7 +1,7 @@
 import socket
 
-host = 'rasp-002.berry.scss.tcd.ie'
-port = 33000
+host = 'rasp-001.berry.scss.tcd.ie'
+port = 33005
 
 storedValue = "Yo, what's up?"
 
@@ -10,9 +10,10 @@ def setupServer():
     print("Socket created.")
     try:
         s.bind((host, port))
+        print("Socket bind comlete.")
     except socket.error as msg:
         print(msg)
-    print("Socket bind comlete.")
+        print("Socket bind Error.")
     return s
 
 def setupConnection():
