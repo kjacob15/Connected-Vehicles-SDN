@@ -3,7 +3,7 @@ import socket
 UDP_IP = "10.35.70.2"
 UDP_PORT = 33005
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
 print("Socket created.")
 try:
     sock.bind((UDP_IP, UDP_PORT))
