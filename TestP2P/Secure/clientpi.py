@@ -1,7 +1,7 @@
 import socket
 from time import sleep
 
-host = 'rasp-001.berry.scss.tcd.ie'
+host = 'rasp-002.berry.scss.tcd.ie'
 port = 33005
 
 
