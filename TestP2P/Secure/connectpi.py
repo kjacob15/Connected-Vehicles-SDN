@@ -27,7 +27,7 @@ def GET():
     return reply
 
 def REPEAT(dataMessage):
-    if dataMessage[1] == None:
+    if len(dataMessage) == 1:
         reply= 'No message received'
     else:
         reply = dataMessage[1]
