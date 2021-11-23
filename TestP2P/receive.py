@@ -14,9 +14,10 @@ except socket.error as msg:
 
 print("Debugging point 1")
 cond= 2
-sock.listen(10000)
+sock.listen(2)
 while cond>0:
-    data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+    conn, addr = sock.accept()
+    data = conn.recvfrom(1024)  # buffer size is 1024 bytes
     data = data.decode('utf-8')
     print("received message: ", data)
     cond= 0
