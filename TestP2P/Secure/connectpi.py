@@ -1,18 +1,19 @@
 import socket
 
 host = 'rasp-002.berry.scss.tcd.ie'
-port = 33000
+port = 33005
 
-storedValue = "Yo, what's up?"
+storedValue = "Hi, Does this work?"
 
 def setupServer():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     print("Socket created.")
     try:
         s.bind((host, port))
+        print("Socket bind complete.")
     except socket.error as msg:
         print(msg)
-    print("Socket bind comlete.")
+        print("Socket bind Error.")
     return s
 
 def setupConnection():
@@ -44,7 +45,7 @@ def dataTransfer(conn):
         elif command == 'REPEAT':
             reply = REPEAT(dataMessage)
         elif command == 'EXIT':
-            print("Our client has left us :(")
+            print("Client Disconnected.")
             break
         elif command == 'KILL':
             print("Our server is shutting down.")
