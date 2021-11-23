@@ -9,7 +9,8 @@ print("UDP target port:", UDP_Port)
 print("message:", MESSAGE)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # UDP
-sock.sendto(MESSAGE.encode('utf-8'), (UDP_IP, UDP_Port))
+conn, addr = sock.accept()
+conn.sendto(MESSAGE.encode('utf-8'), (UDP_IP, UDP_Port))
 print("Message sent")
 
 sock.close()
