@@ -3,7 +3,7 @@ import socket
 host = 'rasp-002.berry.scss.tcd.ie'
 port = 33005
 
-storedValue = "Hi, Does this work?"
+storedValue = "Sample Request?"
 
 def setupServer():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -27,7 +27,10 @@ def GET():
     return reply
 
 def REPEAT(dataMessage):
-    reply = dataMessage[1]
+    if len(dataMessage) == 1:
+        reply= 'No message received'
+    else:
+        reply = dataMessage[1]
     return reply
 
 def dataTransfer(conn):
