@@ -1,5 +1,5 @@
 import socket
-#import time
+import time
 import sys 
 import random
 
@@ -22,27 +22,30 @@ print("UDP target port:", signal_port)
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #UDP
 
-
-s = 0
-#while True:
+s = 0.0
+while True:
     # incrementing speed
-i = 5
-for i in range(random.randint(1,9)): 
-    s = s + 5 * i
-    if(s > 80):
-        break
-    else :
-        print("Speed of the vehicle " + str(arg1) + " " + str(s) + " km/h.--")
 
-# stopping the car 
-#d = 10
-while(s > 0):
-    if(s > 80):
+    for i in range(random.randint(1,9)): 
+        s = s + 5.2 * i
+        if(s > 80):
+            break
+        else :
+            print("Speed of the vehicle " + str(arg1) + " " + str(s) + " km/h.--")
+            x = str(s)
+            sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
+            time.sleep(0.1)
+    # stopping the car 
+    #d = 10
+    while(s > 0.0):
+        if(s > 80):
+            s =  s - 20
+            continue
         s =  s - 20
-        continue
-    s =  s - 20
-    if(s < 0 ):
-        s = 0    
-    print("Speed of the vehicle " + str(arg1) + " " + str(s) + " km/h.")
-    
+        if(s < 0.0 ):
+            s = 0.0    
+        print("Speed of the vehicle " + str(arg1) + " " + str(s) + " km/h.")
+        x = str(s)
+        sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
+        time.sleep(0.1)
 sock.close()
