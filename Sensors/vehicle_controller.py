@@ -4,7 +4,7 @@ import sys
 from threading import Thread
 from queue import Queue
 
-UDP_IP = "10.6.56.41"
+UDP_IP = "10.35.70.2"
 
 #main Thread
 def handle_client(
