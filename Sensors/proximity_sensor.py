@@ -14,7 +14,7 @@ except ValueError:
     print("The vehicle number and the sensor number must be valid integers.")
     exit()
 
-Signal_host = "10.6.56.41"
+Signal_host = "10.35.70.2"
 
 print("UDP target IP:", Signal_host)
 print("UDP target port:", Signal_Port)
