@@ -18,6 +18,11 @@
     python $scriptDir/proximity.py 1 4 &
 
     # Location sensor
-    python $scriptDir/location.py 1 5
+    python $scriptDir/location.py 1 5 &
 
+    # Speed sensor
+    python $scriptDir/speed_sensor.py 1 6 &
+
+    # Fuel sensor
+    python $scriptDir/fuel_sensor.py 1 7
 )
