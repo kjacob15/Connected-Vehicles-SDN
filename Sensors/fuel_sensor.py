@@ -16,7 +16,7 @@ except ValueError:
     print("The vehicle number and the sensor number must be valid integers.")
     exit()
 
-signal_host = "10.6.56.41"
+signal_host = "10.35.70.2"
 
 print("UDP target IP:", signal_host)
 print("UDP target port:", signal_port)
@@ -27,14 +27,14 @@ f = 0.0
 
 while True:
     f = f + 0.5
-    print("Fuel consumed by vehicle " + str(arg1) + " " + str(f) + " % ")
+    print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " FUEL CONSUMED = " + str(f) + "%.")
     x = str(f)
     sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
     time.sleep(0.1)
     
     if(f == 0 or f < 0):
         f = 0.0 
-        print("Fuel consumed by vehicle " + str(arg1) + " " + str(f) + " % ")
+        print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " FUEL CONSUMED = " + str(f) + "%.")
         x = str(f)
         sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
         time.sleep(0.1)
