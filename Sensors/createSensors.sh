@@ -6,16 +6,16 @@
     scriptDir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 
     # Front proximity sensor
-    python $scriptDir/proximity.py 1 1 &
+    python $scriptDir/proximity_sensor.py 1 1 &
 
     # Right proximity sensor
-    python $scriptDir/proximity.py 1 2 &
+    python $scriptDir/proximity_sensor.py 1 2 &
 
     # Back proximity sensor
-    python $scriptDir/proximity.py 1 3 &
+    python $scriptDir/proximity_sensor.py 1 3 &
 
     # Left proximity sensor
-    python $scriptDir/proximity.py 1 4 &
+    python $scriptDir/proximity_sensor.py 1 4 &
 
     # Location sensor
     python $scriptDir/location.py 1 5 &

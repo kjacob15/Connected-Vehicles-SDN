@@ -27,6 +27,6 @@ while True:
     n = str(random.random() * 3)
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " value = " + n + ".")
+    print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " PROXIMITY = " + n + ".")
 
 sock.close()
