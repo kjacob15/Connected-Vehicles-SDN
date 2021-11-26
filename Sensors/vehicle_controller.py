@@ -38,7 +38,8 @@ def frontProxClient(port):
     sock.bind((UDP_IP, port)) 
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-        data = data.decode('utf-8').decode('utf-8')
+        data = data.decode('utf-8')
+        data = data.decode('utf-8')        
         print("Received message from FRONT PROXIMITY SENSOR: ", data)
 
 def rightProxClient(port):
@@ -47,7 +48,8 @@ def rightProxClient(port):
     sock.bind((UDP_IP, port))
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-        data = data.decode('utf-8').decode('utf-8')
+        data = data.decode('utf-8')
+        data = data.decode('utf-8')        
         print("Received message from RIGHT PROXIMITY SENSOR: ", data)    
 
 def backProxClient(port):
@@ -56,7 +58,8 @@ def backProxClient(port):
     sock.bind((UDP_IP, port))    
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-        data = data.decode('utf-8').decode('utf-8')
+        data = data.decode('utf-8')
+        data = data.decode('utf-8')        
         print("Received message from BACK PROXIMITY SENSOR: ", data)
 
 def leftProxClient(port):
@@ -65,7 +68,8 @@ def leftProxClient(port):
     sock.bind((UDP_IP, port))  
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-        data = data.decode('utf-8').decode('utf-8')
+        data = data.decode('utf-8')
+        data = data.decode('utf-8')        
         print("Received message from LEFT PROXIMITY SENSOR: ", data)
 
 def locationClient(port):
@@ -74,7 +78,8 @@ def locationClient(port):
     sock.bind((UDP_IP, port))    
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-        data = data.decode('utf-8').decode('utf-8')
+        data = data.decode('utf-8')
+        data = data.decode('utf-8')        
         print("Received message from LOCATION SENSOR: ", data)
 
 def speedClient(port):
@@ -83,7 +88,8 @@ def speedClient(port):
     sock.bind((UDP_IP, port))    
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-        data = data.decode('utf-8').decode('utf-8')
+        data = data.decode('utf-8')
+        data = data.decode('utf-8')        
         print("Received message from SPEED SENSOR: ", data)
 
 def fuelClient(port):
@@ -92,7 +98,8 @@ def fuelClient(port):
     sock.bind((UDP_IP, port))   
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-        data = data.decode('utf-8').decode('utf-8')
+        data = data.decode('utf-8')
+        data = data.decode('utf-8')
         print("Received message from FUEL SENSOR: ", data)
 
 threads = []
