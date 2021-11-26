@@ -29,14 +29,14 @@ while True:
     f = f + 0.5
     print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " FUEL CONSUMED = " + str(f) + "%.")
     x = str(f)
-    sock.sendto(x, (signal_host, signal_port))
+    sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
     time.sleep(0.1)
     
     if(f == 0 or f < 0):
         f = 0.0 
         print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " FUEL CONSUMED = " + str(f) + "%.")
         x = str(f)
-        sock.sendto(x), (signal_host, signal_port))
+        sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
         time.sleep(0.1)
     if(f == 100):
         break;

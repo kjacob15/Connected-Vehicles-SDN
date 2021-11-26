@@ -23,7 +23,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 while True:
     n = str(random.random() * 3)
     time.sleep(0.1)
-    sock.sendto(n, (Signal_host, Signal_Port))
+    sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
     print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " PROXIMITY = " + n + ".")
 
 sock.close()
