@@ -2,7 +2,6 @@ import socket
 import time
 import sys 
 from threading import Thread
-from queue import Queue
 
 UDP_IP = "10.35.70.2"
 
@@ -97,7 +96,6 @@ def fuelClient(port):
         print("Received message from FUEL SENSOR: ", data)
 
 threads = []
-queue = Queue()
 
 try:
     arg1 = int(sys.argv[1])
