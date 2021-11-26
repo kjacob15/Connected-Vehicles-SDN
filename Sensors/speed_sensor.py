@@ -33,7 +33,7 @@ while True:
         else :
             print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " SPEED = " + str(s) + " km/h.")
             x = str(s)
-            sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
+            sock.sendto(x, (signal_host, signal_port))
             time.sleep(0.1)
     # stopping the car 
     #d = 10
@@ -46,6 +46,6 @@ while True:
             s = 0.0    
         print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " SPEED = " + str(s) + " km/h.")
         x = str(s)
-        sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
+        sock.sendto(x, (signal_host, signal_port))
         time.sleep(0.1)
 sock.close()
