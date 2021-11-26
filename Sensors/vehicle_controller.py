@@ -4,6 +4,8 @@ import sys
 from threading import Thread
 from queue import Queue
 
+UDP_IP = "10.6.56.41"
+
 #main Thread
 def handle_client(
     front_proximity_sensor_port, right_proximity_sensor_port, back_proximity_sensor_port, left_proximity_sensor_port, 
@@ -31,28 +33,68 @@ def handle_client(
     t7.start()
 
 
-
 def frontProxClient(port):
     print("Started frontProxClient")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((UDP_IP, port)) 
+    while true:
+        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data = data.decode('utf-8')
+        print("Received message from FRONT PROXIMITY SENSOR: ", data)
 
 def rightProxClient(port):
     print("Started rightProxClient")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((UDP_IP, port))
+    while true:
+        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data = data.decode('utf-8')
+        print("Received message from RIGHT PROXIMITY SENSOR: ", data)    
 
 def backProxClient(port):
     print("Started backProxClient")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((UDP_IP, port))    
+    while true:
+        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data = data.decode('utf-8')
+        print("Received message from BACK PROXIMITY SENSOR: ", data)
 
 def leftProxClient(port):
     print("Started leftProxClient")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((UDP_IP, port))  
+    while true:
+        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data = data.decode('utf-8')
+        print("Received message from LEFT PROXIMITY SENSOR: ", data)
 
 def locationClient(port):
     print("Started locationClient")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((UDP_IP, port))    
+    while true:
+        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data = data.decode('utf-8')
+        print("Received message from LOCATION SENSOR: ", data)
 
 def speedClient(port):
     print("Started speedClient")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((UDP_IP, port))    
+    while true:
+        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data = data.decode('utf-8')
+        print("Received message from SPEED SENSOR: ", data)
 
 def fuelClient(port):
     print("Started fuelClient")
-
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
+    sock.bind((UDP_IP, port))   
+    while true:
+        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data = data.decode('utf-8')
+        print("Received message from FUEL SENSOR: ", data)
 
 threads = []
 queue = Queue()
