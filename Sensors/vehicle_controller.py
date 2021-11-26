@@ -37,7 +37,7 @@ def frontProxClient(port):
     print("Started frontProxClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, port)) 
-    while true:
+    while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data = data.decode('utf-8')
         print("Received message from FRONT PROXIMITY SENSOR: ", data)
@@ -46,7 +46,7 @@ def rightProxClient(port):
     print("Started rightProxClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, port))
-    while true:
+    while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data = data.decode('utf-8')
         print("Received message from RIGHT PROXIMITY SENSOR: ", data)    
@@ -55,7 +55,7 @@ def backProxClient(port):
     print("Started backProxClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, port))    
-    while true:
+    while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data = data.decode('utf-8')
         print("Received message from BACK PROXIMITY SENSOR: ", data)
@@ -64,7 +64,7 @@ def leftProxClient(port):
     print("Started leftProxClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, port))  
-    while true:
+    while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data = data.decode('utf-8')
         print("Received message from LEFT PROXIMITY SENSOR: ", data)
@@ -73,7 +73,7 @@ def locationClient(port):
     print("Started locationClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, port))    
-    while true:
+    while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data = data.decode('utf-8')
         print("Received message from LOCATION SENSOR: ", data)
@@ -82,7 +82,7 @@ def speedClient(port):
     print("Started speedClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, port))    
-    while true:
+    while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data = data.decode('utf-8')
         print("Received message from SPEED SENSOR: ", data)
@@ -91,7 +91,7 @@ def fuelClient(port):
     print("Started fuelClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
     sock.bind((UDP_IP, port))   
-    while true:
+    while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data = data.decode('utf-8')
         print("Received message from FUEL SENSOR: ", data)
