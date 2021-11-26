@@ -5,6 +5,8 @@
     # Get script directory
     scriptDir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 
+    python $scriptDir/Sensors/vehicle_controller.py 1 &     # Vehicle controller
+
     python $scriptDir/Sensors/proximity_sensor.py 1 1 &     # Front proximity sensor
     python $scriptDir/Sensors/proximity_sensor.py 1 2 &     # Right proximity sensor
     python $scriptDir/Sensors/proximity_sensor.py 1 3 &     # Back proximity sensor
