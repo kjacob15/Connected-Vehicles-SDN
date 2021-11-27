@@ -20,16 +20,14 @@ print("UDP target IP:", Signal_host)
 print("UDP target port:", Signal_Port)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
+prox = 2.5
 while True:
     ran = random.random()
-    prox = 3
-    if(ran < 0.0001):
-        prox = random.random()
-    elif(ran < 0.001):
-        prox = random.random() + 1
-    elif(ran < 0.01):
-        prox = random.random() + 2
-    n = str(prox)
+    if(ran < 0.5):
+        prox = prox - 0.1
+    else:
+        prox = prox + 0.1
+    n = str(max(prox, 3))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
     print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " PROXIMITY = " + n + ".")
