@@ -23,7 +23,7 @@ data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel = '', '', ''
 
 def handle_client(
     front_proximity_sensor_port, right_proximity_sensor_port, back_proximity_sensor_port, left_proximity_sensor_port,
-        location_sensor_port, speed_sensor_port, fuel_sensor_port):
+        location_sensor_port, speed_sensor_port, fuel_sensor_port, speed_sock):
     # t=[]
     print("Starting Thread")
     # data, addr = socket.recvfrom(1024)  # buffer size is 1024 bytes
@@ -36,7 +36,7 @@ def handle_client(
     t4 = Thread(target=leftProxClient, args=(left_proximity_sensor_port,))
     t5 = Thread(target=locationClient, args=(location_sensor_port,))
     t6 = Thread(target=speedClient, args=(speed_sensor_port,))
-    t7= Thread(target=fuelClient, args=(fuel_sensor_port,speed_sensor_port))
+    t7= Thread(target=fuelClient, args=(fuel_sensor_port,speed_sock))
 
     threads = [t1, t2, t3, t4, t5, t6, t7]
 
@@ -173,7 +173,7 @@ def Main():
             target=handle_client,
             args=(
                 front_proximity_sensor_port, right_proximity_sensor_port, back_proximity_sensor_port, left_proximity_sensor_port,
-                location_sensor_port, speed_sock, (fuel_sensor_port , speed_sock)
+                location_sensor_port, speed_sock, fuel_sensor_port ,speed_sock
             )
         )
         # time.sleep(7)
