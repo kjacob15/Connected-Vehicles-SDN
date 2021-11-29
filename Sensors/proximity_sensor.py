@@ -4,9 +4,11 @@ import random
 import sys
 
 try:
-    arg1 = int(sys.argv[1])
-    arg2 = int(sys.argv[2])
-    Signal_Port = 33000 + (10)*arg1 + arg2
+    network_number = int(sys.argv[1])
+    vehicle_number = int(sys.argv[2])
+    sensor_number = int(sys.argv[3])
+    signal_host = "10.35.70." + str(network_number)
+    Signal_Port = 33000 + (10)*vehicle_number + sensor_number
 except IndexError:
     print("Must provide two arguments: the vehicle number and the sensor number.")
     exit()
@@ -30,6 +32,6 @@ while True:
     n = str(min(prox, 3))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " PROXIMITY = " + n + ".")
+    print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + ".")
 
 sock.close()

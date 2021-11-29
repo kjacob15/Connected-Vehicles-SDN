@@ -146,14 +146,16 @@ def updateCentralControl():
 
 def Main():
     try:
-        arg1 = int(sys.argv[1])
-        front_proximity_sensor_port = 33000 + (10)*arg1 + 1+100
-        right_proximity_sensor_port = 33000 + (10)*arg1 + 2+100
-        back_proximity_sensor_port = 33000 + (10)*arg1 + 3+100
-        left_proximity_sensor_port = 33000 + (10)*arg1 + 4+100
-        location_sensor_port = 33000 + (10)*arg1 + 5
-        speed_sensor_port = 33000 + (10)*arg1 + 6
-        fuel_sensor_port = 33000 + (10)*arg1 + 7
+        network_number = int(sys.argv[1])
+        vehicle_number = int(sys.argv[2])
+        signal_host = "10.35.70." + str(network_number)
+        front_proximity_sensor_port = 33000 + (10)*vehicle_number + 1+100
+        right_proximity_sensor_port = 33000 + (10)*vehicle_number + 2+100
+        back_proximity_sensor_port = 33000 + (10)*vehicle_number + 3+100
+        left_proximity_sensor_port = 33000 + (10)*vehicle_number + 4+100
+        location_sensor_port = 33000 + (10)*vehicle_number + 5
+        speed_sensor_port = 33000 + (10)*vehicle_number + 6
+        fuel_sensor_port = 33000 + (10)*vehicle_number + 7
         global mainThread
         mainThread= Thread(
             target=handle_client, 
