@@ -31,7 +31,8 @@ def handle_client(
     #print("received message: ", data)
 
     speed_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    speed_sock.bind((UDP_IP, speed_sensor_port))
+    speed_sock.bind((UDP_IP, 33888))
+    speed_sock.settimeout(100)
 
     t1 = Thread(target=frontProxClient, args=(front_proximity_sensor_port,))
     t2 = Thread(target=rightProxClient, args=(right_proximity_sensor_port,))
