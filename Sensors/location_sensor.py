@@ -10,13 +10,11 @@ try:
     signal_host = "10.35.70." + str(network_number)
     Signal_Port = 33000 + (10)*vehicle_number + sensor_number
 except IndexError:
-    print("Must provide two arguments: the vehicle number and the sensor number.")
+    print("Must provide three arguments: network number, vehicle number and sensor number.")
     exit()
 except ValueError:
-    print("The vehicle number and the sensor number must be valid integers.")
+    print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
-
-Signal_host = "10.35.70.2"
 
 print("UDP target IP:", Signal_host)
 print("UDP target port:", Signal_Port)

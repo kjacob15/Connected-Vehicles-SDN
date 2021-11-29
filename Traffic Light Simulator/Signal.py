@@ -1,7 +1,16 @@
 import socket
 import time
 
-Signal_host = "10.6.56.41"
+try:
+    network_number = int(sys.argv[1])
+    Signal_host = "10.35.70." + str(network_number)
+except IndexError:
+    print("Must provide one arguments: the network number.")
+    exit()
+except ValueError:
+    print("The network number must be a valid integer.")
+    exit()
+
 Signal_Port = 33007
 msg = "STOP"
 
