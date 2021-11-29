@@ -6,10 +6,7 @@ from multiprocessing import Process
 
 # thread function
 def createThread(c):
-    global vehicle_socket
-    vehicle_socket=c
     while True:
-
         #data received from client
         data= c.recv(1024)
         data= data.decode('utf-8')
@@ -20,7 +17,7 @@ def createThread(c):
             c.send(str.encode('hello'))
         elif data == 'KILL':
             c.send(str.encode('KILL'))
-            c.close()
+            sock.close()
             break
         elif not data:
             print('Connection Closed')                   
@@ -46,7 +43,7 @@ def controlThread(c):
             c.send(str.encode('Failover'))
             sock.close()
             # vehicle_socket.close()
-            c.close()
+            control_sock.close()
             break
         else:
             c.send(str.encode(data))
@@ -89,6 +86,7 @@ def main():
     # Port that communicates with the central controller
     control_port= 33100
     global sock
+    global control_sock
     sock= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     control_sock= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # sock.close()

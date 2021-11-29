@@ -121,7 +121,7 @@ def main():
 
     # Port that communicates with the central controller
     control_port = 33100
-
+    global control_sock
     control_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     control_sock.settimeout(5)
 
