@@ -16,8 +16,9 @@ except ValueError:
     print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
 
-print("UDP target IP:", Signal_host)
-print("UDP target port:", Signal_Port)
+f = open("proximity_sensor_logs.txt", "a")
+f.write("UDP target IP:", Signal_host)
+f.write("UDP target port:", Signal_Port)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 prox = 3
@@ -30,6 +31,6 @@ while True:
     n = str(min(max(prox, 0), 3))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + ".")
+    f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + ".")
 
 sock.close()
