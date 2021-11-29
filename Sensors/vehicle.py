@@ -91,7 +91,7 @@ def backProxClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_bp = data.decode('utf-8')
-        f.write("Received message from BACK PROXIMITY SENSOR: " + srt(data_bp))
+        f.write("Received message from BACK PROXIMITY SENSOR: " + str(data_bp))
         f.flush()
 
 def leftProxClient(port):

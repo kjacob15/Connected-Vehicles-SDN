@@ -24,7 +24,7 @@ f = open("logs/location_sensor_logs.txt", "a")
 f.write("\n")
 f.write(str(datetime.now()) + "\n")
 f.write("UDP target IP:" + Signal_host + "\n")
-f.write("UDP target port:" + Signal_Port + "\n")
+f.write("UDP target port:" + str(Signal_Port) + "\n")
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 
@@ -37,5 +37,5 @@ while True:
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
     f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " LOCATION = " + n + ".")
     f.flush()
-    
+
 sock.close()
