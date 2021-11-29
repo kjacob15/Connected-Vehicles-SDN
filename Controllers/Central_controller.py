@@ -4,10 +4,11 @@ import time
 from _thread import *
 from multiprocessing import Process
 
-print_lock = Thread.Lock()
 
 # thread function
 def createThread(c):
+    global vehicle_socket
+    vehicle_socket=c
     while True:
 
         #data received from client
@@ -20,17 +21,13 @@ def createThread(c):
             c.send(str.encode('hello'))
         elif data == 'KILL':
             c.send(str.encode('KILL'))
-            
+            c.close()
             break
-        if not data:
-            print('Connection Closed')
-
-            #release lock
-            
+        elif not data:
+            print('Connection Closed')                   
             break
-        
-        # Send data back to the client
-        c.send(str.encode('Test'))
+        else:
+            c.send(str.encode(data))
     
     c.close()
 
@@ -45,26 +42,15 @@ def controlThread(c):
             c.send(str.encode('Active'))
         elif data == 'ADD':
             c.send(str.encode('Booting Server'))
-            
             break
         elif data == 'KILL':
-            c.send(str.encode('Connection Closed'))
-            
+            c.send(str.encode('Failover'))
+            vehicle_socket.close()
+            c.close()
             break
         else:
             c.send(str.encode(data))
-            continue
-        # print(data)
-        # if not data:
-        #     print('Connection Closed')
-
-            #release lock
-        #     
-        #     break
-        
-        # # Send data back to the client
-        # c.send(str.encode('KILL'))
-    
+            continue   
     c.close()
 
 def data(sock):
@@ -75,9 +61,7 @@ def data(sock):
 
         # Establish Client connection
         connection, address= sock.accept()
-
-        # Acquire client lock
-        print_lock.acquire()
+        
         print("Connected to : ", address[0], ':', address[1])
 
         p1= Process(target=createThread, args=(connection,))
@@ -90,12 +74,12 @@ def control(control_sock):
     while True:
         control_connection, control_address= control_sock.accept()
 
-        print_lock.acquire()
+        
         print("Connected to : ", control_address[0], ':', control_address[1])
 
         p2=Process(target= controlThread, args=(control_connection,))
         p2.start()
-        
+
 
 def main():
     host='10.6.56.41'
