@@ -17,8 +17,14 @@ while True:
         break
     elif command == 'KILL':
         s.send(str.encode(command))
+        reply= s.recv(1024)
+        print(reply.decode('utf-8'))
+        if reply.decode('utf-8') == 'KILL':
+            s.close()
+            break
         break
-    s.send(str.encode(command))
+    else:
+        s.send(str.encode(command))
     reply= s.recv(1024)
     print(reply.decode('utf-8'))
     if reply.decode('utf-8') == 'KILL':
