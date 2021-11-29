@@ -11,7 +11,7 @@ UDP_IP = ""
 Network_Controller= ""
 
 global data_fp, data_bp, data_rp, data_lp, data_loc, data_speed, data_fuel, data_voltage
-data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel = '', '', '', '', '', '', '', ''
+data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel, data_voltage = '', '', '', '', '', '', '', ''
 
 # with lock:
 #	port = 33000

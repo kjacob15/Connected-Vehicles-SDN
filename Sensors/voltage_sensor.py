@@ -26,7 +26,7 @@ sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #UDP
 
 while True:
     ran = random.random() + 13
-    print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " BATTERY VOLTAGE = " + str(ran) + "%.")
+    print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " BATTERY VOLTAGE = " + str(ran) + "V.")
     x = str(ran)
     sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
     time.sleep(0.1)
