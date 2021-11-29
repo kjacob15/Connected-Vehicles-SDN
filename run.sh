@@ -5,7 +5,7 @@
     # Get script directory
     scriptDir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 
-    python $scriptDir/Traffic\ Light\ Simulator/Signal.py   # Traffic lights
+    python $scriptDir/Traffic\ Light\ Simulator/Signal.py & # Traffic lights
 
     python $scriptDir/Sensors/vehicle_controller.py 1 &     # Vehicle controller
 
