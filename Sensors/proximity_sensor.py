@@ -17,7 +17,7 @@ except ValueError:
     print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
 
-f = open("proximity_sensor_" + str(sensor_number) + "_logs.txt", "a")
+f = open("logs/proximity_sensor_" + str(sensor_number) + "_logs.txt", "a")
 
 f.write("\n")
 f.write(str(datetime.now()) + "\n")
