@@ -38,7 +38,7 @@ while True:
         if(s > 80):
             break
         else :
-            f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.")
+            f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.\n")
             f.flush()
             x = str(s)
             sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
@@ -52,7 +52,7 @@ while True:
         s =  s - 20
         if(s < 0.0 ):
             s = 0.0    
-        f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.")
+        f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.\n")
         f.flush()
         x = str(s)
         sock.sendto(x.encode('utf-8'), (signal_host, signal_port))

@@ -35,7 +35,7 @@ while True:
     n = str((locationX, locationY))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " LOCATION = " + n + ".")
+    f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " LOCATION = " + n + ".\n")
     f.flush()
 
 sock.close()
