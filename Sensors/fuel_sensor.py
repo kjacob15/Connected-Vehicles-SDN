@@ -18,6 +18,7 @@ except ValueError:
 
 signal_host = "10.35.70.2"
 #signal_port = 33090
+
 print("UDP target IP:", signal_host)
 print("UDP target port:", signal_port)
 
@@ -45,5 +46,4 @@ try :
             time.sleep(5)
 except :
     sock.close()
-
     

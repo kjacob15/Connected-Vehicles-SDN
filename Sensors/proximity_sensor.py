@@ -1,8 +1,5 @@
 import socket
 import time
-
-import socket
-import time
 import random
 import sys
 
@@ -17,16 +14,16 @@ except ValueError:
     print("The vehicle number and the sensor number must be valid integers.")
     exit()
 
-Signal_host = "10.6.56.41"
+Signal_host = "10.35.70.2"
 
 print("UDP target IP:", Signal_host)
 print("UDP target port:", Signal_Port)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 while True:
-    n = str(((random.random() * 3), (random.random() * 3)))
+    n = str(random.random() * 3)
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " value = " + n + ".")
+    print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " PROXIMITY = " + n + ".")
 
 sock.close()
