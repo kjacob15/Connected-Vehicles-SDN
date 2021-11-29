@@ -65,7 +65,7 @@ def frontProxClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_fp = data.decode('utf-8')
-        f.write("Received message from FRONT PROXIMITY SENSOR: ", data_fp)
+        f.write("Received message from FRONT PROXIMITY SENSOR: " + str(data_fp))
         f.flush()
 
 def rightProxClient(port):
@@ -78,7 +78,7 @@ def rightProxClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_rp = data.decode('utf-8')
-        f.write("Received message from RIGHT PROXIMITY SENSOR: ", data_rp)
+        f.write("Received message from RIGHT PROXIMITY SENSOR: " + str(data_rp))
         f.flush()
 
 def backProxClient(port):
@@ -91,7 +91,7 @@ def backProxClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_bp = data.decode('utf-8')
-        f.write("Received message from BACK PROXIMITY SENSOR: ", data_bp)
+        f.write("Received message from BACK PROXIMITY SENSOR: " + srt(data_bp))
         f.flush()
 
 def leftProxClient(port):
@@ -104,7 +104,7 @@ def leftProxClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_lp = data.decode('utf-8')
-        f.write("Received message from LEFT PROXIMITY SENSOR: ", data_lp)
+        f.write("Received message from LEFT PROXIMITY SENSOR: " + str(data_lp))
         f.flush()
 
 def locationClient(port):
@@ -117,7 +117,7 @@ def locationClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_loc = data.decode('utf-8')
-        f.write("Received message from LOCATION SENSOR: ", data_loc)
+        f.write("Received message from LOCATION SENSOR: " + str(data_loc))
         f.flush()
 
 def speedClient(port):
@@ -130,7 +130,7 @@ def speedClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_speed = data.decode('utf-8')
-        f.write("Received message from SPEED SENSOR: ", data_speed)
+        f.write("Received message from SPEED SENSOR: " + str(data_speed))
         f.flush()
 
 def fuelClient(port):
@@ -143,7 +143,7 @@ def fuelClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_fuel = data.decode('utf-8')
-        f.write("Received message from FUEL SENSOR: ", data_fuel)
+        f.write("Received message from FUEL SENSOR: " + str(data_fuel))
         f.flush()
 
 def voltageClient(port):
@@ -156,7 +156,7 @@ def voltageClient(port):
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_voltage = data.decode('utf-8')
-        f.write("Received message from VOLTAGE SENSOR: ", data_voltage)
+        f.write("Received message from VOLTAGE SENSOR: " + str(data_voltage))
         f.flush()
 
 def updateCentralControl():
