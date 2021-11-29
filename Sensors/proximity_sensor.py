@@ -20,7 +20,7 @@ print("UDP target IP:", Signal_host)
 print("UDP target port:", Signal_Port)
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
-prox = 2.5
+prox = 3
 while True:
     ran = random.random()
     if(ran < 0.5):
