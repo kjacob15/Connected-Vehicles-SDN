@@ -2,6 +2,7 @@ import socket
 import time
 import random
 import sys
+from datetime import date
 
 try:
     network_number = int(sys.argv[1])
@@ -17,8 +18,11 @@ except ValueError:
     exit()
 
 f = open("proximity_sensor_logs.txt", "a")
-f.write("UDP target IP:" + Signal_host)
-f.write("UDP target port:" + str(Signal_Port))
+
+f.write("\n")
+f.write(str(date.today()) + "\n")
+f.write("UDP target IP:" + Signal_host + "\n")
+f.write("UDP target port:" + str(Signal_Port) + "\n")
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 prox = 3
@@ -31,7 +35,7 @@ while True:
     n = str(min(max(prox, 0), 3))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + ".")
+    f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + "." + "\n")
     f.flush()
 
 sock.close()
