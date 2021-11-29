@@ -2,7 +2,8 @@ import socket
 import time
 import sys 
 import random
-
+import os
+from datetime import datetime
 
 try:
     network_number = int(sys.argv[1])
@@ -18,15 +19,20 @@ except ValueError:
     print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
 
+os.makedirs("logs", exist_ok=True)
+f = open("logs/voltage_sensor_logs.txt", "a")
 
-print("UDP target IP:", signal_host)
-print("UDP target port:", signal_port)
+f.write("\n")
+f.write(str(datetime.now()) + "\n")
+f.write("UDP target IP:" + signal_host + "\n")
+f.write("UDP target port:" + str(signal_port) + "\n")
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #UDP
 
 while True:
     ran = random.random() + 13
-    print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " BATTERY VOLTAGE = " + str(ran) + "V.")
+    f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " BATTERY VOLTAGE = " + str(ran) + "V.")
+    f.flush()
     x = str(ran)
     sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
     time.sleep(0.1)
