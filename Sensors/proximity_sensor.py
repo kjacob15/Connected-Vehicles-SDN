@@ -17,8 +17,8 @@ except ValueError:
     exit()
 
 f = open("proximity_sensor_logs.txt", "a")
-f.write("UDP target IP:", Signal_host)
-f.write("UDP target port:", Signal_Port)
+f.write("UDP target IP:" + Signal_host)
+f.write("UDP target port:" + str(Signal_Port))
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 prox = 3
