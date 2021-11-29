@@ -1,6 +1,6 @@
-network_pattern = '[12]'
+network_pattern='[12]'
 
-if ! [[ $1 =~ $1 ]]; then
+if ! [[ $1 =~ $network_pattern ]]; then
     echo "error: first argument to script must be pi number" ?&2; exit 1
 fi
 
