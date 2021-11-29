@@ -7,7 +7,7 @@ try:
     network_number = int(sys.argv[1])
     vehicle_number = int(sys.argv[2])
     sensor_number = int(sys.argv[3])
-    signal_host = "10.35.70." + str(network_number)
+    Signal_host = "10.35.70." + str(network_number)
     Signal_Port = 33000 + (10)*vehicle_number + sensor_number
 except IndexError:
     print("Must provide three arguments: network number, vehicle number and sensor number.")
