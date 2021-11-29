@@ -95,6 +95,7 @@ def control(control_sock):
 
         p2=Process(target= controlThread, args=(control_connection,))
         p2.start()
+        
 
 def main():
     host='10.6.56.41'
