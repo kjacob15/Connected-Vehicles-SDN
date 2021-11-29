@@ -27,7 +27,7 @@ while True:
         prox = prox - 0.1
     else:
         prox = prox + 0.1
-    n = str(min(prox, 3))
+    n = str(min(max(prox, 0), 3))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
     print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + ".")
