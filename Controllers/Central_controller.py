@@ -4,7 +4,6 @@ import time
 from _thread import *
 from multiprocessing import Process
 
-
 # thread function
 def createThread(c):
     global vehicle_socket
@@ -45,7 +44,8 @@ def controlThread(c):
             break
         elif data == 'KILL':
             c.send(str.encode('Failover'))
-            vehicle_socket.close()
+            sock.close()
+            # vehicle_socket.close()
             c.close()
             break
         else:
@@ -88,11 +88,11 @@ def main():
 
     # Port that communicates with the central controller
     control_port= 33100
-
+    global sock
     sock= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     control_sock= socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # sock.close()
-
+  
     sock.bind((host,port))
     print('Socket bound to port: ', port)
 
