@@ -2,6 +2,7 @@ import socket
 import time
 import random
 import sys
+import os
 from datetime import datetime
 
 try:
@@ -17,6 +18,7 @@ except ValueError:
     print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
 
+os.makedirs("logs", exist_ok=True)
 f = open("logs/proximity_sensor_" + str(sensor_number) + "_logs.txt", "a")
 
 f.write("\n")
