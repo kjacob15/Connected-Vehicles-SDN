@@ -34,3 +34,4 @@ while True:
     f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + ".")
 
 sock.close()
+f.close()
