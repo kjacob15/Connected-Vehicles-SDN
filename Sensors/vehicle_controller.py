@@ -106,7 +106,7 @@ try:
     location_sensor_port = 33000 + (10)*arg1 + 5
     speed_sensor_port = 33000 + (10)*arg1 + 6
     fuel_sensor_port = 33000 + (10)*arg1 + 7
-    print("fuel_sensor_port = " + str(fuel_sensor_port)
+    print("fuel_sensor_port = " + str(fuel_sensor_port))
     global mainThread
     mainThread= Thread(
         target=handle_client, 
