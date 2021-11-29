@@ -2,7 +2,7 @@ import socket
 import time
 import random
 import sys
-from datetime import date
+from datetime
 
 try:
     network_number = int(sys.argv[1])
@@ -20,7 +20,7 @@ except ValueError:
 f = open("proximity_sensor_logs.txt", "a")
 
 f.write("\n")
-f.write(str(date.today()) + "\n")
+f.write(str(datetime.now()) + "\n")
 f.write("UDP target IP:" + Signal_host + "\n")
 f.write("UDP target port:" + str(Signal_Port) + "\n")
 
