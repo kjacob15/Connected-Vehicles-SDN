@@ -32,6 +32,7 @@ while True:
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
     f.write("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + ".")
+    f.flush()
 
 sock.close()
 f.close()
