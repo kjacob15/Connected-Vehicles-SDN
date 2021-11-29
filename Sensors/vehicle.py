@@ -126,7 +126,7 @@ def updateCentralControl():
 	invalid = True
 	while invalid:
 		try:
-			print('trying- success')
+			#print('trying- success')
 			invalid = False
 			s.connect((UDP_IP,33000))
 		except:
