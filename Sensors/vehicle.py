@@ -121,7 +121,7 @@ def fuelClient(port,speed_port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_IP, port)) 
     sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock2.bind(UDP_IP,speed_port)
+    sock2.bind((UDP_IP,speed_port))
     sock.settimeout(5) 
 
     while True:
