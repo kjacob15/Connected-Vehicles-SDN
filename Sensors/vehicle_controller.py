@@ -9,14 +9,14 @@ lock = threading.Lock()
 
 UDP_IP = "10.35.70.1"
 
-global data_fp,data_bp,data_rp,data_lp,data_loc,data_speed,data_fuel
+global data_fp,data_bp,data_rp,data_lp,data_loc,data_speed,data_fuel,vehicle_number
 data_fp,data_rp,data_bp,data_lp,data_loc,data_speed,data_fuel = '','','','','','',''
 
 #with lock:
-#	port = 33000
-#	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#	sock.connect((UDP_IP,port))
-#	sock.send('TEST'.encode('ascii'))
+#port = 39003
+#sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#sock.connect(('10.35.70.2',39003))
+#sock.sendall('TEST'.encode())
 
 #main Thread
 def handle_client(
@@ -113,40 +113,60 @@ def fuelClient(port):
     print("Started fuelClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
     sock.bind((UDP_IP, port)) 
-    sock.settimeout(5)  
+    sock.settimeout(10)  
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_fuel = data.decode('utf-8')
         print("Received message from FUEL SENSOR: ", data_fuel)
 
 def updateCentralControl():
-    global data_fp,data_lp,data_rp_data_bp,data_loc,data_speed,data_fuel
+    global data_fp,data_lp,data_rp,data_bp,data_loc,data_speed,data_fuel
+    check = ''
     with lock:
-	s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-	invalid = True
-	while invalid:
-		try:
-			print('trying- success')
-			invalid = False
-			s.connect((UDP_IP,33000))
-		except:
-			invalid = True
-	try:
-		for i in range(10):
-			time.sleep(10)
-			s.sendall(str(json.dumps({'vehicle_number':'4','data':[
-{'front_prox':data_fp,'back_prox':data_bp,'right_prox':data_rp,'left_prox':data_lp,
-'speed':data_speed,'loc':data_loc,'fuel':data_fuel}]})).encode())
-	except:
-		print('send fail')
-	print('send')
-	print(str(s.recv(1024)))
-	s.close()
+        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        invalid = True
+        while invalid:
+            try:
+                print('trying- success')
+                invalid = False
+                s.connect((UDP_IP,33133))
+            except:
+                invalid = True
+        try:
+            for i in range(10):
+                time.sleep(5)
+                s.sendall(str(json.dumps({'vehicle_number':vehicle_number,'data':[
+    {'front_prox':data_fp,'back_prox':data_bp,'right_prox':data_rp,'left_prox':data_lp,
+    'speed':data_speed,'loc':data_loc,'fuel':data_fuel}]})).encode())
+                check_data = str(s.recv(1024))
+		check = check_data.split(' ',1)[0]
+		check_data = check_data.split(' ',1)[1:]
+                print(check_data)
+                if check == 'CONTINUE':
+                    #print(str(s.recv(1024)))
+                    print('continue')
+                    pass
+                elif check == 'CHANGE_OVER':
+                    s.close()
+                    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                    s.connect(('10.35.70.2',33133))
+                    print('change over detected')
+                else:
+                    break
+        except Exception as e:
+            print('send fail',str(e))
+        print('send')
+        # print(str(s.recv(1024)))
+        s.close()
+		
+		
 
 
 def Main():
+    global vehicle_number
     try:
         arg1 = int(sys.argv[1])
+	vehicle_number = arg1
         front_proximity_sensor_port = 33000 + (10)*arg1 + 1+100
         right_proximity_sensor_port = 33000 + (10)*arg1 + 2+100
         back_proximity_sensor_port = 33000 + (10)*arg1 + 3+100
@@ -172,11 +192,10 @@ def Main():
         print("The vehicle number must be a valid integer.")
         exit()
     except KeyboardInterrupt:
-	print('keyboard interrupt')
-	exit()
+        print('keyboard interrupt')
+        exit()
 
 if __name__ =='__main__':
     Main()
-
 
 
