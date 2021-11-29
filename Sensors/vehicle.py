@@ -21,7 +21,6 @@ data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel = '', '', ''
 
 # main Thread
 
-
 def handle_client(
     front_proximity_sensor_port, right_proximity_sensor_port, back_proximity_sensor_port, left_proximity_sensor_port,
         location_sensor_port, speed_sensor_port, fuel_sensor_port):
@@ -104,24 +103,20 @@ def locationClient(port):
         data_loc = data.decode('utf-8')
         print("Received message from LOCATION SENSOR: ", data_loc)
 
-def speedClient(port):
+def speedClient(speed_sock):
     global data_speed
     print("Started speedClient")
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind((UDP_IP, port))
-    sock.settimeout(100)
+    speed_sock.settimeout(100)
     while True:
-        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data, addr = speed_sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_speed = data.decode('utf-8')
         print("Received message from SPEED SENSOR: ", data_speed)
 
-def fuelClient(port,speed_port):
+def fuelClient(port,speed_sock):
     global data_fuel
     print("Started fuelClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind((UDP_IP, port)) 
-    sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock2.bind((UDP_IP,speed_port))
+    sock.bind((UDP_IP, port))
     sock.settimeout(5) 
 
     while True:
@@ -130,7 +125,7 @@ def fuelClient(port,speed_port):
         print("Received message from FUEL SENSOR: ", data_fuel)
         if(data_fuel == "FUEL"):
             x = "FUEL"
-            sock2.sendto(x.encode('utf-8'), (UDP_IP, speed_port))
+            speed_sock.sendto(x.encode('utf-8'), (UDP_IP, speed_sock))
 
 def updateCentralControl():
     global data_fp, data_lp, data_rp_data_bp, data_loc, data_speed, data_fuel
@@ -169,12 +164,16 @@ def Main():
         location_sensor_port = 33000 + (10)*vehicle_number + 5
         speed_sensor_port = 33000 + (10)*vehicle_number + 6
         fuel_sensor_port = 33000 + (10)*vehicle_number + 7
+
+        speed_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        speed_sock.bind((UDP_IP,speed_sensor_port))
+        
         global mainThread
         mainThread = Thread(
             target=handle_client,
             args=(
                 front_proximity_sensor_port, right_proximity_sensor_port, back_proximity_sensor_port, left_proximity_sensor_port,
-                location_sensor_port, speed_sensor_port, fuel_sensor_port
+                location_sensor_port, speed_sock, (fuel_sensor_port , speed_sock)
             )
         )
         # time.sleep(7)
