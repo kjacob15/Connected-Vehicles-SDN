@@ -15,13 +15,6 @@ Network_Controller= ""
 global data_fp, data_bp, data_rp, data_lp, data_loc, data_speed, data_fuel, data_voltage
 data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel, data_voltage = '', '', '', '', '', '', '', ''
 
-os.makedirs("logs", exist_ok=True)
-os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
-f = open("logs/vehicle" + str(vehicle_number) + "/vehicle_logs.txt", "a")
-
-f.write("\n")
-f.write(str(datetime.now()) + "\n")
-
 # with lock:
 #	port = 33000
 #	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -199,7 +192,14 @@ def Main():
         location_sensor_port = 33000 + (10)*vehicle_number + 5
         speed_sensor_port = 33000 + (10)*vehicle_number + 6
         fuel_sensor_port = 33000 + (10)*vehicle_number + 7
-        voltage_sensor_port = 33000 + (10)*vehicle_number + 8
+        voltage_sensor_port = 33000 + (10)*vehicle_number + 8        
+        os.makedirs("logs", exist_ok=True)
+        os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
+        global f
+        f = open("logs/vehicle" + str(vehicle_number) + "/vehicle_logs.txt", "a")
+
+        f.write("\n")
+        f.write(str(datetime.now()) + "\n")
         global mainThread
         mainThread = Thread(
             target=handle_client,
