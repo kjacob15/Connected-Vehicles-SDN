@@ -10,8 +10,8 @@ lock = threading.Lock()
 UDP_IP = ""
 Network_Controller= ""
 
-global data_fp, data_bp, data_rp, data_lp, data_loc, data_speed, data_fuel
-data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel = '', '', '', '', '', '', ''
+global data_fp, data_bp, data_rp, data_lp, data_loc, data_speed, data_fuel, data_voltage
+data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel = '', '', '', '', '', '', '', ''
 
 # with lock:
 #	port = 33000
@@ -24,7 +24,7 @@ data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel = '', '', ''
 
 def handle_client(
     front_proximity_sensor_port, right_proximity_sensor_port, back_proximity_sensor_port, left_proximity_sensor_port,
-        location_sensor_port, speed_sensor_port, fuel_sensor_port):
+        location_sensor_port, speed_sensor_port, fuel_sensor_port, voltage_sensor_port):
     # t=[]
     print("Starting Thread")
     # data, addr = socket.recvfrom(1024)  # buffer size is 1024 bytes
@@ -38,8 +38,9 @@ def handle_client(
     t5 = Thread(target=locationClient, args=(location_sensor_port,))
     t6 = Thread(target=speedClient, args=(speed_sensor_port,))
     t7 = Thread(target=fuelClient, args=(fuel_sensor_port,))
+    t8 = Thread(target=voltageClient, args=(voltage_sensor_port,))
 
-    threads = [t1, t2, t3, t4, t5, t6, t7]
+    threads = [t1, t2, t3, t4, t5, t6, t7, t8]
 
     for i in threads:
         i.start()
@@ -128,6 +129,16 @@ def fuelClient(port):
         data_fuel = data.decode('utf-8')
         print("Received message from FUEL SENSOR: ", data_fuel)
 
+def voltageClient(port):
+    global data_voltage
+    print("Started voltageClient")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind((UDP_IP, port))
+    sock.settimeout(5)
+    while True:
+        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+        data_voltage = data.decode('utf-8')
+        print("Received message from VOLTAGE SENSOR: ", data_voltage)
 
 def updateCentralControl():
     global data_fp, data_lp, data_rp_data_bp, data_loc, data_speed, data_fuel
@@ -166,12 +177,13 @@ def Main():
         location_sensor_port = 33000 + (10)*vehicle_number + 5
         speed_sensor_port = 33000 + (10)*vehicle_number + 6
         fuel_sensor_port = 33000 + (10)*vehicle_number + 7
+        voltage_sensor_port = 33000 + (10)*vehicle_number + 8
         global mainThread
         mainThread = Thread(
             target=handle_client,
             args=(
                 front_proximity_sensor_port, right_proximity_sensor_port, back_proximity_sensor_port, left_proximity_sensor_port,
-                location_sensor_port, speed_sensor_port, fuel_sensor_port
+                location_sensor_port, speed_sensor_port, fuel_sensor_port, voltage_sensor_port
             )
         )
         # time.sleep(7)

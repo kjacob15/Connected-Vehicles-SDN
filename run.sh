@@ -18,5 +18,6 @@ network=$1
     python $scriptDir/Sensors/proximity_sensor.py "$network" 1 4 &     # Left proximity sensor
     python $scriptDir/Sensors/location_sensor.py "$network" 1 5 &      # Location sensor
     python $scriptDir/Sensors/speed_sensor.py "$network" 1 6 &         # Speed sensor
-    python $scriptDir/Sensors/fuel_sensor.py "$network" 1 7            # Fuel sensor
+    python $scriptDir/Sensors/fuel_sensor.py "$network" 1 7 &          # Fuel sensor
+    python $scriptDir/Sensors/voltage_sensor.py "$network" 1 8         # Voltage sensor
 )
