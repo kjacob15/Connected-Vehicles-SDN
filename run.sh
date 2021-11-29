@@ -1,10 +1,15 @@
+network_pattern = '[12]'
+
+if ! [[ $1 =~ $1 ]]; then
+    echo "error: first argument to script must be pi number" ?&2; exit 1
+fi
+
+# Get network
+network = $1
+
 (
     # Allows us to quit entire process with ctrl-c
     trap 'kill 0' SIGINT;
-
-    # Get network
-    network = $1
-
     # Get script directory
     scriptDir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 
