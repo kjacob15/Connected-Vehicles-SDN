@@ -7,7 +7,7 @@ import threading
 
 lock = threading.Lock()
 
-UDP_IP = "10.35.70.1"
+UDP_IP = "10.35.70.2"
 
 global data_fp,data_bp,data_rp,data_lp,data_loc,data_speed,data_fuel
 data_fp,data_rp,data_bp,data_lp,data_loc,data_speed,data_fuel = '','','','','','',''
