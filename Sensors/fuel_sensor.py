@@ -33,7 +33,7 @@ fuel = 0.0
 
 while True:
     fuel = fuel + 0.5
-    f.write(str(datetime.now()) + "Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(fuel) + "%.\n")
+    f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(fuel) + "%.\n")
     f.flush()
     x = str(fuel)
     sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
@@ -41,7 +41,7 @@ while True:
     
     if(fuel == 0 or fuel < 0):
         fuel = 0.0 
-        f.write(str(datetime.now()) + "Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(fuel) + "%.\n")
+        f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(fuel) + "%.\n")
         f.flush()
         x = str(fuel)
         sock.sendto(x.encode('utf-8'), (signal_host, signal_port))

@@ -37,7 +37,7 @@ while True:
     n = str(min(max(prox, 0), 3))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    f.write(str(datetime.now()) + "Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + "." + "\n")
+    f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + "." + "\n")
     f.flush()
 
 sock.close()
