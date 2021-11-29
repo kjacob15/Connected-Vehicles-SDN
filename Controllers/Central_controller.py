@@ -82,7 +82,7 @@ def control(control_sock):
 
 
 def main():
-    host='10.6.56.41'
+    host='rasp-001.berry.scss.tcd.ie'
 
     port=33000
 

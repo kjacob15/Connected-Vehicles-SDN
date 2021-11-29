@@ -7,7 +7,7 @@ from multiprocessing import Process
 # print_lock = Thread.Lock()
 
 # thread function
-host = '10.6.56.41'
+host = 'rasp-001.berry.scss.tcd.ie'
 
 def createThread(c):
     while True:
