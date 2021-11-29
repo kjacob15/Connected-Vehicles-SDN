@@ -4,18 +4,18 @@ import sys
 import random
 
 try:
-    arg1 = int(sys.argv[1])
-    arg2 = int(sys.argv[2])
-    signal_port = 33000 + 10*arg1 + arg2
+    network_number = int(sys.argv[1])
+    vehicle_number = int(sys.argv[2])
+    sensor_number = int(sys.argv[3])
+    signal_host = "10.35.70." + str(network_number)
+    signal_port = 33000 + 10*vehicle_number + sensor_number
 
 except IndexError:
-    print("Must provide two arguments: the vehicle number and the sensor number")
+    print("Must provide three arguments: network number, vehicle number and sensor number.")
     exit()
 except ValueError:
-    print("The vehicle number and the sensor number must be valid integers.")
+    print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
-
-signal_host = "10.35.70.2"
 
 print("UDP target IP:", signal_host)
 print("UDP target port:", signal_port)
@@ -31,7 +31,7 @@ while True:
         if(s > 80):
             break
         else :
-            print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " SPEED = " + str(s) + " km/h.")
+            print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.")
             x = str(s)
             sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
             time.sleep(0.1)
@@ -44,7 +44,7 @@ while True:
         s =  s - 20
         if(s < 0.0 ):
             s = 0.0    
-        print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " SPEED = " + str(s) + " km/h.")
+        print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.")
         x = str(s)
         sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
         time.sleep(0.1)

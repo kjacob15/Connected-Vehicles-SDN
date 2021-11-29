@@ -7,7 +7,7 @@ import threading
 
 lock = threading.Lock()
 
-UDP_IP = "10.35.70.1"
+UDP_IP = ""
 Network_Controller= ""
 
 global data_fp, data_bp, data_rp, data_lp, data_loc, data_speed, data_fuel
@@ -136,7 +136,7 @@ def updateCentralControl():
         invalid = True
         while invalid:
             try:
-                print('trying- success')
+                #print('trying- success')
                 invalid = False
                 s.connect((UDP_IP, 33000))
             except:
@@ -156,14 +156,16 @@ def updateCentralControl():
 
 def Main():
     try:
-        arg1 = int(sys.argv[1])
-        front_proximity_sensor_port = 33000 + (10)*arg1 + 1+100
-        right_proximity_sensor_port = 33000 + (10)*arg1 + 2+100
-        back_proximity_sensor_port = 33000 + (10)*arg1 + 3+100
-        left_proximity_sensor_port = 33000 + (10)*arg1 + 4+100
-        location_sensor_port = 33000 + (10)*arg1 + 5
-        speed_sensor_port = 33000 + (10)*arg1 + 6
-        fuel_sensor_port = 33000 + (10)*arg1 + 7
+        network_number = int(sys.argv[1])
+        vehicle_number = int(sys.argv[2])
+        UDP_IP = "10.35.70." + str(network_number)
+        front_proximity_sensor_port = 33000 + (10)*vehicle_number + 1
+        right_proximity_sensor_port = 33000 + (10)*vehicle_number + 2
+        back_proximity_sensor_port = 33000 + (10)*vehicle_number + 3
+        left_proximity_sensor_port = 33000 + (10)*vehicle_number + 4
+        location_sensor_port = 33000 + (10)*vehicle_number + 5
+        speed_sensor_port = 33000 + (10)*vehicle_number + 6
+        fuel_sensor_port = 33000 + (10)*vehicle_number + 7
         global mainThread
         mainThread = Thread(
             target=handle_client,
