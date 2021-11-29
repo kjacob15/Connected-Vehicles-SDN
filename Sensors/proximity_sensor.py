@@ -19,7 +19,8 @@ except ValueError:
     exit()
 
 os.makedirs("logs", exist_ok=True)
-f = open("logs/proximity_sensor_" + str(sensor_number) + "_logs.txt", "a")
+os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
+f = open("logs/vehicle" + str(vehicle_number) + "/proximity_sensor_" + str(sensor_number) + "_logs.txt", "a")
 
 f.write("\n")
 f.write(str(datetime.now()) + "\n")

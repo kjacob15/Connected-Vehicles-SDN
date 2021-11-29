@@ -16,7 +16,8 @@ global data_fp, data_bp, data_rp, data_lp, data_loc, data_speed, data_fuel, data
 data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel, data_voltage = '', '', '', '', '', '', '', ''
 
 os.makedirs("logs", exist_ok=True)
-f = open("logs/vehicle_logs.txt", "a")
+os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
+f = open("logs/vehicle" + str(vehicle_number) + "/vehicle_logs.txt", "a")
 
 f.write("\n")
 f.write(str(datetime.now()) + "\n")
