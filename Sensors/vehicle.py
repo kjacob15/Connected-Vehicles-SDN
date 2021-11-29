@@ -37,7 +37,7 @@ def handle_client(
     t4 = Thread(target=leftProxClient, args=(left_proximity_sensor_port,))
     t5 = Thread(target=locationClient, args=(location_sensor_port,))
     t6 = Thread(target=speedClient, args=(speed_sensor_port,))
-    t7 = Thread(target=fuelClient, args=(fuel_sensor_port,))
+    t7= Thread(target=fuelClient, args=(fuel_sensor_port,speed_sensor_port))
 
     threads = [t1, t2, t3, t4, t5, t6, t7]
 
@@ -104,7 +104,6 @@ def locationClient(port):
         data_loc = data.decode('utf-8')
         print("Received message from LOCATION SENSOR: ", data_loc)
 
-
 def speedClient(port):
     global data_speed
     print("Started speedClient")
@@ -116,18 +115,22 @@ def speedClient(port):
         data_speed = data.decode('utf-8')
         print("Received message from SPEED SENSOR: ", data_speed)
 
-
-def fuelClient(port):
+def fuelClient(port,speed_port):
     global data_fuel
     print("Started fuelClient")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind((UDP_IP, port))
-    sock.settimeout(5)
+    sock.bind((UDP_IP, port)) 
+    sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock2.bind(UDP_IP,speed_port)
+    sock.settimeout(5) 
+
     while True:
         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
         data_fuel = data.decode('utf-8')
         print("Received message from FUEL SENSOR: ", data_fuel)
-
+        if(data_fuel == "FUEL"):
+            x = "FUEL"
+            sock2.sendto(x.encode('utf-8'), (UDP_IP, speed_port))
 
 def updateCentralControl():
     global data_fp, data_lp, data_rp_data_bp, data_loc, data_speed, data_fuel

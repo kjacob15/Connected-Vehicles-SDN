@@ -26,21 +26,24 @@ sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #UDP
 
 f = 0.0 
 
-while True:
-    f = f + 0.5
-    print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(f) + "%.")
-    x = str(f)
-    sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
-    time.sleep(0.1)
-    
-    if(f == 0 or f < 0):
-        f = 0.0 
-        print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(f) + "%.")
-        x = str(f)
-        sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
-        time.sleep(0.1)
-    if(f == 100):
-        break;
 
-sock.close()
-    
+try :
+    while True:
+        f = f + 0.5
+        print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(f) + "%.")
+        #x = str(f)
+        #sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
+        time.sleep(0.1)
+        if(f == 0 or f < 0):
+            f = 0.0 
+            print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(f) + "%.")
+            x = str(f)
+            sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
+        
+        if(f == 100):
+            x = "FUEL"
+            sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
+            f = 0.0
+            time.sleep(5)
+except :
+    sock.close()
