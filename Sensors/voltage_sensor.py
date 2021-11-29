@@ -1,7 +1,7 @@
 import socket
 import time
 import sys 
-#import random
+import random
 
 
 try:
