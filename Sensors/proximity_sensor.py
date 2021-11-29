@@ -2,7 +2,7 @@ import socket
 import time
 import random
 import sys
-import datetime
+from datetime import datetime
 
 try:
     network_number = int(sys.argv[1])
