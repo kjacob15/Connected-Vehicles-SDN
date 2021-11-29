@@ -1,7 +1,7 @@
 import socket
 import time
 
-Signal_host = "10.6.56.41"
+Signal_host = "10.6.56.42"
 Signal_Port = 33007
 msg = "STOP"
 
