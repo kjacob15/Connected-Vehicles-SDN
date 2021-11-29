@@ -2,7 +2,7 @@ network_pattern='[12]'
 if ! [[ $1 =~ $network_pattern ]]; then
     echo "error: first argument to script must be pi number" &2; exit 1
 fi
-network = $1
+network=$1
 
 (
     # Allows us to quit entire process with ctrl-c
