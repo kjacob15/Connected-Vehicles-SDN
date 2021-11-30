@@ -100,7 +100,7 @@ def ping(control_sock):
             print(reply.decode('utf-8'))
             if reply.decode('utf-8') == 'Failover':
                 control_sock.close()
-                time.sleep(3)                
+                time.sleep(5)                
                 actingController()
                 break                
             break
@@ -123,7 +123,7 @@ def main():
     control_port = 33100
     global control_sock
     control_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    control_sock.settimeout(5)
+    # control_sock.settimeout(5)
 
     #Talk to main Central Controller
     control_sock.connect((host, control_port))

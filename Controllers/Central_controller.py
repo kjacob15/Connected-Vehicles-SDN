@@ -6,7 +6,7 @@ from multiprocessing import Process
 import sys
 
 # thread function
-def createThread(c):
+def createThread(c, sock):
     while True:
         #data received from client
         data= c.recv(1024)
@@ -26,7 +26,7 @@ def createThread(c):
         else:
             c.send(str.encode(data))
     
-    c.close()
+    sock.close()
 
 def controlThread(c, control_sock,sock):
     while True:
@@ -42,8 +42,6 @@ def controlThread(c, control_sock,sock):
             break
         elif data == 'KILL':
             c.send(str.encode('Failover'))
-            sock.close()
-            control_sock.close()
             break
         else:
             c.send(str.encode(data))
@@ -61,7 +59,7 @@ def data(sock):
         
         print("Connected to : ", address[0], ':', address[1])
 
-        p1= Process(target=createThread, args=(connection,))
+        p1= Process(target=createThread, args=(connection,sock))
         p1.start()
 
 def control(control_sock, sock):
