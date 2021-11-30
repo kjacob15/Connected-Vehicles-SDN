@@ -65,8 +65,7 @@ def data(sock):
         
         print("Connected to : ", address[0], ':', address[1])
 
-        p1= Process(target=createThread, args=(connection,sock))
-        p1.start()
+        createThread(connection,sock)
 
 def control(control_sock, sock):
     control_sock.listen(5)
@@ -78,8 +77,8 @@ def control(control_sock, sock):
         
         print("Connected to : ", control_address[0], ':', control_address[1])
 
-        p2=Process(target= controlThread, args=(control_connection,control_sock,sock))
-        p2.start()
+        controlThread(control_connection, control_sock, sock)
+
 
 
 def main():
