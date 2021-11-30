@@ -15,6 +15,7 @@ fi
 #trap 'kill 0' SIGINT;
 # Get script directory
 scriptDir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
+tmux new
 
 for f in `seq 1 5`; do
     vehicleNum=$(($f + $vehicleIncrement))
