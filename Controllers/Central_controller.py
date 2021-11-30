@@ -42,7 +42,6 @@ def controlThread(c, control_sock,sock):
             break
         elif data == 'KILL':
             c.send(str.encode('Failover'))
-            connection.close()
             c.close()
             control_sock.close()
             sock.close()
