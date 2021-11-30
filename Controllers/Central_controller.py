@@ -4,10 +4,10 @@ import time
 from _thread import *
 from multiprocessing import Process
 import sys
-
+kill=0
 # thread function
 def createThread(c, sock):
-    while True:
+    while (kill == 0):
         #data received from client
         data= c.recv(1024)
         data= data.decode('utf-8')
@@ -25,11 +25,11 @@ def createThread(c, sock):
             break
         else:
             c.send(str.encode(data))
-    
-    sys.exit()
+    c.close()
 
 def controlThread(c, control_sock,sock):
-    while True:
+    global kill
+    while (kill == 0):
 
         #data received from client
         data= c.recv(1024)
@@ -41,16 +41,16 @@ def controlThread(c, control_sock,sock):
             c.send(str.encode('Booting Server'))
             break
         elif data == 'KILL':
+            kill=1
             c.send(str.encode('Failover'))
             c.close()
             control_sock.close()
             sock.close()
-            sys.exit()
             break
         else:
             c.send(str.encode(data))
             continue   
-    sys.exit()
+    c.close()
 
 def data(sock):
     sock.listen(5)
@@ -105,11 +105,13 @@ def main():
     controller= Process(target= control, args=(control_sock,sock))
     controller.start()
 
-    while True:
+    while kill<1:
       try:
           time.sleep(10)
       except:
           break
+    sock.close()
+    control_sock.close()
 
 
 if __name__ == '__main__':
