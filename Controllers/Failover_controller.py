@@ -99,8 +99,8 @@ def ping(control_sock):
             reply = control_sock.recv(1024)
             print(reply.decode('utf-8'))
             if reply.decode('utf-8') == 'Failover':
-                time.sleep(2)
                 control_sock.close()
+                time.sleep(3)                
                 actingController()
                 break                
             break

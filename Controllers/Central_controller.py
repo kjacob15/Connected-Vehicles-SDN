@@ -3,6 +3,7 @@ import threading as Thread
 import time
 from _thread import *
 from multiprocessing import Process
+import sys
 
 # thread function
 def createThread(c):
@@ -27,7 +28,7 @@ def createThread(c):
     
     c.close()
 
-def controlThread(c):
+def controlThread(c, control_sock,sock):
     while True:
 
         #data received from client
@@ -42,13 +43,12 @@ def controlThread(c):
         elif data == 'KILL':
             c.send(str.encode('Failover'))
             sock.close()
-            # vehicle_socket.close()
             control_sock.close()
             break
         else:
             c.send(str.encode(data))
             continue   
-    c.close()
+    sys.exit()
 
 def data(sock):
     sock.listen(5)
@@ -64,7 +64,7 @@ def data(sock):
         p1= Process(target=createThread, args=(connection,))
         p1.start()
 
-def control(control_sock):
+def control(control_sock, sock):
     control_sock.listen(5)
     print("Socket listening on the port: Control Sock ")
 
@@ -74,7 +74,7 @@ def control(control_sock):
         
         print("Connected to : ", control_address[0], ':', control_address[1])
 
-        p2=Process(target= controlThread, args=(control_connection,))
+        p2=Process(target= controlThread, args=(control_connection,control_sock,sock))
         p2.start()
 
 
@@ -100,7 +100,7 @@ def main():
     vehicle_listener= Process(target= data, args=(sock,))
     vehicle_listener.start()
     
-    controller= Process(target= control, args=(control_sock,))
+    controller= Process(target= control, args=(control_sock,sock))
     controller.start()
 
     while True:
