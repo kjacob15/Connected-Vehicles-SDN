@@ -44,8 +44,8 @@ def controlThread(c, control_sock,sock):
             kill=1
             c.send(str.encode('Failover'))
             c.close()
-            # control_sock.close()
-            # sock.close()
+            control_sock.close()
+            sock.close()
             break
         else:
             c.send(str.encode(data))
@@ -56,7 +56,7 @@ def data(sock):
     sock.listen(5)
     print("Socket listening on the port: sock")
 
-    while kill<1:
+    while True:
 
         # Establish Client connection
         global connection
@@ -70,14 +70,13 @@ def control(control_sock, sock):
     control_sock.listen(5)
     print("Socket listening on the port: Control Sock ")
 
-    while kill<1:
+    while True:
         control_connection, control_address= control_sock.accept()
 
         
         print("Connected to : ", control_address[0], ':', control_address[1])
 
         controlThread(control_connection, control_sock, sock)
-    
 
 
 
