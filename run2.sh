@@ -19,8 +19,6 @@ scriptDir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 for f in `seq 1 5`; do
     vehicleNum=$(($f + $vehicleIncrement))
     tmux split-window -d -t "$vehicleNum" -p20 -v "watch -n1 tail -n5 file_${f}";
-    tmux select-layout -t "$vehicleNum" even-vertical
-    tmux attach-session -t "$vehicleNum"
 done
 
 for f in `seq 1 5`; do
