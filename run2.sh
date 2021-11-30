@@ -25,7 +25,7 @@ done
 
 for f in `seq 1 5`; do
     vehicleNum=$(($f + $vehicleIncrement))
-    tmux split-window -d -t "$vehicleNum" -p20 -v "watch -n1 tail -n5 file_${f}";
+    tmux split-window -d -t "$vehicleNum" -p20 -v "watch -n1 tail -n5 file_${f+5}";
     tmux select-layout -t "$vehicleNum" even-vertical
     tmux attach-session -t "$vehicleNum"
     python3 $scriptDir/Sensors/vehicle.py "$network" "$vehicleNum" &     # Vehicle controller
