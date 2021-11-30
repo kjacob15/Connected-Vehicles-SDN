@@ -2,22 +2,30 @@ import socket
 import time
 import random
 import sys
+import os
+from datetime import datetime
 
 try:
-    arg1 = int(sys.argv[1])
-    arg2 = int(sys.argv[2])
-    Signal_Port = 33000 + (10)*arg1 + arg2
+    network_number = int(sys.argv[1])
+    vehicle_number = int(sys.argv[2])
+    sensor_number = int(sys.argv[3])
+    Signal_host = "10.35.70." + str(network_number)
+    Signal_Port = 33000 + (10)*vehicle_number + sensor_number
 except IndexError:
-    print("Must provide two arguments: the vehicle number and the sensor number.")
+    print("Must provide three arguments: network number, vehicle number and sensor number.")
     exit()
 except ValueError:
-    print("The vehicle number and the sensor number must be valid integers.")
+    print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
 
-Signal_host = "10.35.70.2"
+os.makedirs("logs", exist_ok=True)
+os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
+f = open("logs/vehicle" + str(vehicle_number) + "/location_sensor_logs.txt", "a")
 
-print("UDP target IP:", Signal_host)
-print("UDP target port:", Signal_Port)
+f.write("\n")
+f.write(str(datetime.now()) + "\n")
+f.write("UDP target IP:" + Signal_host + "\n")
+f.write("UDP target port:" + str(Signal_Port) + "\n")
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 
@@ -28,6 +36,7 @@ while True:
     n = str((locationX, locationY))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " LOCATION = " + n + ".")
+    f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " LOCATION = " + n + ".\n")
+    f.flush()
 
 sock.close()
