@@ -42,6 +42,8 @@ def controlThread(c, control_sock,sock):
             break
         elif data == 'KILL':
             c.send(str.encode('Failover'))
+            connection.close()
+            c.close()
             control_sock.close()
             sock.close()
             sys.exit()
@@ -58,6 +60,7 @@ def data(sock):
     while True:
 
         # Establish Client connection
+        global connection
         connection, address= sock.accept()
         
         print("Connected to : ", address[0], ':', address[1])
