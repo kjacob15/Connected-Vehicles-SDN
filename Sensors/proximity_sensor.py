@@ -2,6 +2,8 @@ import socket
 import time
 import random
 import sys
+import os
+from datetime import datetime
 
 try:
     network_number = int(sys.argv[1])
@@ -16,8 +18,14 @@ except ValueError:
     print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
 
-print("UDP target IP:", Signal_host)
-print("UDP target port:", Signal_Port)
+os.makedirs("logs", exist_ok=True)
+os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
+f = open("logs/vehicle" + str(vehicle_number) + "/proximity_sensor_" + str(sensor_number) + "_logs.txt", "a")
+
+f.write("\n")
+f.write(str(datetime.now()) + "\n")
+f.write("UDP target IP:" + Signal_host + "\n")
+f.write("UDP target port:" + str(Signal_Port) + "\n")
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
 prox = 3
@@ -27,9 +35,11 @@ while True:
         prox = prox - 0.1
     else:
         prox = prox + 0.1
-    n = str(min(prox, 3))
+    n = str(min(max(prox, 0), 3))
     time.sleep(0.1)
     sock.sendto(n.encode('utf-8'), (Signal_host, Signal_Port))
-    print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + ".")
+    f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " PROXIMITY = " + n + "." + "\n")
+    f.flush()
 
 sock.close()
+f.close()

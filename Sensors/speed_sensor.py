@@ -2,6 +2,8 @@ import socket
 import time
 import sys 
 import random
+import os
+from datetime import datetime
 
 try:
     network_number = int(sys.argv[1])
@@ -17,8 +19,14 @@ except ValueError:
     print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
 
-print("UDP target IP:", signal_host)
-print("UDP target port:", signal_port)
+os.makedirs("logs", exist_ok=True)
+os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
+f = open("logs/vehicle" + str(vehicle_number) + "/fuel_sensor_logs.txt", "a")
+
+f.write("\n")
+f.write(str(datetime.now()) + "\n")
+f.write("UDP target IP:" + signal_host + "\n")
+f.write("UDP target port:" + str(signal_port) + "\n")
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #UDP
 
@@ -31,7 +39,8 @@ while True:
         if(s > 80):
             break
         else :
-            print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.")
+            f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.\n")
+            f.flush()
             x = str(s)
             sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
             time.sleep(0.1)
@@ -44,7 +53,8 @@ while True:
         s =  s - 20
         if(s < 0.0 ):
             s = 0.0    
-        print("Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.")
+        f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.\n")
+        f.flush()
         x = str(s)
         sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
         time.sleep(0.1)
