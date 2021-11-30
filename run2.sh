@@ -20,7 +20,7 @@ tmux new
 for f in `seq 1 5`; do
     vehicleNum=$(($f + $vehicleIncrement))
     tmux new-session -d -s "$vehicleNum" & #"bash $scriptDir/createVehicle.sh $network $vehicleNum"
-    tmux split-window -d -t "$vehicleNum" -p20 -v "bash $scriptDir/createVehicle.sh $network $vehicleNum"; &
+    tmux split-window -d -t "$vehicleNum" -p20 -v "bash $scriptDir/createVehicle.sh $network $vehicleNum" &
     tmux select-layout -t "$vehicleNum" even-vertical
     tmux attach-session -t "$vehicleNum"
 done
