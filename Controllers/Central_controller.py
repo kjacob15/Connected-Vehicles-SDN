@@ -26,7 +26,7 @@ def createThread(c, sock):
         else:
             c.send(str.encode(data))
     
-    sock.close()
+    sys.exit()
 
 def controlThread(c, control_sock,sock):
     while True:
@@ -42,6 +42,9 @@ def controlThread(c, control_sock,sock):
             break
         elif data == 'KILL':
             c.send(str.encode('Failover'))
+            control_sock.close()
+            sock.close()
+            sys.exit()
             break
         else:
             c.send(str.encode(data))
