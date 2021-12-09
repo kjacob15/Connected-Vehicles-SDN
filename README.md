@@ -30,3 +30,18 @@ Commands from the failover controller
 - PING
 - KILL
 ```
+
+## Network Switching
+### Create Network Control
+While the bash script for `create_vehicle_network.sh` is running
+
+1. Run 'Controller_Network_1.py' on pi 1
+```
+python3 Network-Switch/Controller_Network_1.py
+```
+2. Run 'Controller_Network_2.py' on pi 2
+```
+python3 Network-Switch/Controller_Network_2.py
+```
+
+The vehicles running on Network 1 (Pi 1) will switch to Network 2 (Pi 2) after a period of time.
