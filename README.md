@@ -43,5 +43,9 @@ python3 Network-Switch/Controller_Network_1.py
 ```
 python3 Network-Switch/Controller_Network_2.py
 ```
+3. Run 'vehicle.py' on a separate terminal
+```
+python3 Network-Switch/vehicle.py
+```
 
 The vehicles running on Network 1 (Pi 1) will switch to Network 2 (Pi 2) after a period of time.
