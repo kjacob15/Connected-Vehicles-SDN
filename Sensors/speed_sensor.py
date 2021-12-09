@@ -2,23 +2,31 @@ import socket
 import time
 import sys 
 import random
+import os
+from datetime import datetime
 
 try:
-    arg1 = int(sys.argv[1])
-    arg2 = int(sys.argv[2])
-    signal_port = 33000 + 10*arg1 + arg2
+    network_number = int(sys.argv[1])
+    vehicle_number = int(sys.argv[2])
+    sensor_number = int(sys.argv[3])
+    signal_host = "10.35.70." + str(network_number)
+    signal_port = 33000 + 10*vehicle_number + sensor_number
 
 except IndexError:
-    print("Must provide two arguments: the vehicle number and the sensor number")
+    print("Must provide three arguments: network number, vehicle number and sensor number.")
     exit()
 except ValueError:
-    print("The vehicle number and the sensor number must be valid integers.")
+    print("The network number, vehicle number and sensor number must be valid integers.")
     exit()
 
-signal_host = "10.35.70.2"
+os.makedirs("logs", exist_ok=True)
+os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
+f = open("logs/vehicle" + str(vehicle_number) + "/fuel_sensor_logs.txt", "a")
 
-print("UDP target IP:", signal_host)
-print("UDP target port:", signal_port)
+f.write("\n")
+f.write(str(datetime.now()) + "\n")
+f.write("UDP target IP:" + signal_host + "\n")
+f.write("UDP target port:" + str(signal_port) + "\n")
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #UDP
 
@@ -31,7 +39,8 @@ while True:
         if(s > 80):
             break
         else :
-            print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " SPEED = " + str(s) + " km/h.")
+            f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.\n")
+            f.flush()
             x = str(s)
             sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
             time.sleep(0.1)
@@ -44,7 +53,8 @@ while True:
         s =  s - 20
         if(s < 0.0 ):
             s = 0.0    
-        print("Vehicle " + str(arg1) + ", Sensor " + str(arg2) + " SPEED = " + str(s) + " km/h.")
+        f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " SPEED = " + str(s) + " km/h.\n")
+        f.flush()
         x = str(s)
         sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
         time.sleep(0.1)

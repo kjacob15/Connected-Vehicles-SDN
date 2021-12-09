@@ -1,9 +1,7 @@
-#Udisha
-
 import socket
 import time
 import sys 
-#import random
+import random
 import os
 from datetime import datetime
 
@@ -23,7 +21,7 @@ except ValueError:
 
 os.makedirs("logs", exist_ok=True)
 os.makedirs("logs/vehicle" + str(vehicle_number), exist_ok=True)
-f = open("logs/vehicle" + str(vehicle_number) + "/fuel_sensor_logs.txt", "a")
+f = open("logs/vehicle" + str(vehicle_number) + "/voltage_sensor_logs.txt", "a")
 
 f.write("\n")
 f.write(str(datetime.now()) + "\n")
@@ -32,25 +30,12 @@ f.write("UDP target port:" + str(signal_port) + "\n")
 
 sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #UDP
 
-fuel = 0.0 
-
 while True:
-    fuel = fuel + 0.5
-    f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(fuel) + "%.\n")
+    ran = random.random() + 13
+    f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " BATTERY VOLTAGE = " + str(ran) + "V.\n")
     f.flush()
-    x = str(fuel)
+    x = str(ran)
     sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
     time.sleep(0.1)
-    
-    if(fuel == 0 or fuel < 0):
-        fuel = 0.0 
-        f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " FUEL CONSUMED = " + str(fuel) + "%.\n")
-        f.flush()
-        x = str(fuel)
-        sock.sendto(x.encode('utf-8'), (signal_host, signal_port))
-        time.sleep(0.1)
-    if(f == 100):
-        break;
 
 sock.close()
-    
