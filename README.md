@@ -49,3 +49,23 @@ python3 Network-Switch/vehicle.py
 ```
 
 The vehicles running on Network 1 (Pi 1) will switch to Network 2 (Pi 2) after a period of time.
+
+## Traffic Light Simulation
+This is an independent use case that runs on Pi 1.
+
+1. Run 'tls_signal.py' on pi 1
+```
+python3 TLS/tls_signal.py
+```
+
+2. Run 'tls_speed.py' on pi 1 parallely by creating new terminal
+```
+python3 TLS/tls_speed.py 1 6 
+```
+
+3. Run 'tls_fuel.py' on pi 1 parallely by creating new terminal
+```
+python3 TLS/tls_fuel.py 1 7
+```
+
+The `speed` will be seen responding to the incoming signal. The speed will also vary based on the `fuel`.
