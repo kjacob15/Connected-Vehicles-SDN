@@ -9,7 +9,7 @@ bash create_vehicle_network.sh <network_number>
 ```
 where `<network_number>` is either `1` or `2`, corresponding to the Raspberry Pi number that the network is running on. Running this script spins up 5 vehicles with 8 sensors each on the specified Pi.
 
-### Setup Central and Filover Controllers
+### Setup Central and Failover Controllers
 To spin up the central controller, run:
 ```
 python3 Controllers/Central_controller.py
