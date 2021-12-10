@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
-# Jack and John
+#John & Jack
 
->>>>>>> 41354dd5e7b90b3d74fcdd9ccd807d74787f0790
 import socket
 import time
 import sys
@@ -17,7 +14,7 @@ lock = threading.Lock()
 UDP_IP = ""
 Network_Controller= ""
 
-global data_fp, data_bp, data_rp, data_lp, data_loc, data_speed, data_fuel, data_voltage
+global data_fp, data_bp, data_rp, data_lp, data_loc, data_speed, data_fuel, data_voltage,vehicle_number
 data_fp, data_rp, data_bp, data_lp, data_loc, data_speed, data_fuel, data_voltage = '', '', '', '', '', '', '', ''
 
 # with lock:
@@ -159,33 +156,63 @@ def voltageClient(port):
         f.flush()
 
 def updateCentralControl():
-    global data_fp, data_lp, data_rp_data_bp, data_loc, data_speed, data_fuel
+    global data_fp,data_lp,data_rp,data_bp,data_loc,data_speed,data_fuel,vehicle_number
+    check = ''
+    flag = True
     with lock:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         invalid = True
         while invalid:
             try:
-                #print('trying- success')
+                print('trying- success')
                 invalid = False
-                s.connect((UDP_IP, 33000))
+                s.connect(('10.35.70.1',33133))
             except:
                 invalid = True
         try:
-            for i in range(10):
-                time.sleep(10)
-                s.sendall(str(json.dumps({'vehicle_number': '4', 'data': [
-                    {'front_prox': data_fp, 'back_prox': data_bp, 'right_prox': data_rp, 'left_prox': data_lp,
-                     'speed': data_speed, 'loc': data_loc, 'fuel': data_fuel}]})).encode())
-        except:
-            f.write('send fail\n')
-            f.flush()
-        f.write('send\n')
-        f.write(str(s.recv(1024)))
-        f.flush()
+            for i in range(15):
+                time.sleep(5)
+                s.sendall(str(json.dumps({'vehicle_number':vehicle_number,'data':[
+    {'front_prox':data_fp,'back_prox':data_bp,'right_prox':data_rp,'left_prox':data_lp,
+    'speed':data_speed,'loc':data_loc,'fuel':data_fuel}]})).encode())
+                check_data = s.recv(1024).decode()
+                check = str(check_data.split(' ',1)[0])
+                check_data = check_data.split(' ',1)[1:]
+                print(check)
+                try:
+                            same_network_vehicles = json.loads(check_data[0])
+                            print(same_network_vehicles)
+                except:
+                        pass
+                if check == 'CONTINUE':
+                    #print(str(s.recv(1024)))
+                    print('continue')
+                    pass
+                elif check == 'CHANGE_OVER':
+                    if check_data==str(vehicle_number) or True:
+                        print('change over detected'+str(vehicle_number))
+                        s.close()
+                        invalid=True
+                        while invalid:
+                            try:
+                                s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                                invalid = False
+                                s.connect(('10.35.70.2',33133))
+                            except:
+                                invalid = True
+                        print('change over detected')
+                else:
+                    break
+        except Exception as e:
+            print('send fail',str(e))
+        print('send')
+        # print(str(s.recv(1024)))
         s.close()
 
 
+
 def Main():
+    global vehicle_number
     try:
         network_number = int(sys.argv[1])
         vehicle_number = int(sys.argv[2])

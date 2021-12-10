@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+#Kevin
+
+>>>>>>> 41354dd5e7b90b3d74fcdd9ccd807d74787f0790
 import socket
 import threading as Thread
 import time
@@ -114,4 +119,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+<<<<<<< HEAD
     
+=======
+    
+>>>>>>> 41354dd5e7b90b3d74fcdd9ccd807d74787f0790

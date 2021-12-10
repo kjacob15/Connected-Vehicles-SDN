@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+#Jack
+
+>>>>>>> 41354dd5e7b90b3d74fcdd9ccd807d74787f0790
 import socket
 import time
 import random
@@ -39,4 +44,8 @@ while True:
     f.write(str(datetime.now()) + " Vehicle " + str(vehicle_number) + ", Sensor " + str(sensor_number) + " LOCATION = " + n + ".\n")
     f.flush()
 
+<<<<<<< HEAD
 sock.close()
+=======
+sock.close()
+>>>>>>> 41354dd5e7b90b3d74fcdd9ccd807d74787f0790
